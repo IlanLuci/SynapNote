@@ -1,6 +1,6 @@
 const { serialize } = require('cookie');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 
 import prisma from '../../utils/db';
 
@@ -21,16 +21,16 @@ async function register(req, res) {
         if (await prisma.user.findUnique({ where: { email: email } }))
             return res.status(409).send('Email address is already in use.');
     
-        let passwordSalt = Math.floor(Math.random() * (99999 - 10000 + 1) + 10000);
-        let encryptedPassword = await bcrypt.hash(password + passwordSalt.toString(), 10);
+        const salt = crypto.randomBytes(20).toString('hex');
+        const hash = await Bun.password.hash(password + salt);
     
         // create user in db
         await prisma.user.create({
             data: {
                 email: email,
                 name: name,
-                password: encryptedPassword,
-                salt: passwordSalt.toString()
+                password: hash,
+                salt: salt
             },
         });
 
@@ -69,7 +69,7 @@ async function login(req, res) {
         });
 
         if (user) {
-            let isValid = await bcrypt.compare(password + user.salt, user.password);
+            const isValid = await Bun.password.verify(password + user.salt, user.password);
 
             if (!isValid) return res.status(401).send('Invalid password');
 
