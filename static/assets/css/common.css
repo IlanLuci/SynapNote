@@ -1,0 +1,56 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    font-family: "Nunito Sans", sans-serif;
+}
+.navbar{
+    padding: 15px 10px;
+    box-shadow: 0px -2px 6px grey;
+}
+.btn-primary{
+    background: linear-gradient(to left, var(--sn_magenta), var(--sn_orange));
+    border: none;
+    margin: 0px 10px;
+}
+.profile-picture{
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+}
+.material-symbols-outlined, .nav-text{
+    position: relative;
+    top: 5px;
+}
+
+/* Hompeage styles */
+.hero{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 200px;
+}
+
+.hero h1{
+    font-weight: 500;
+    text-align: center;
+    font-size: 50px;
+}
+
+/* signup / login styles */
+.middle{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 200px;
+}
+input{
+    padding: 10px;
+    width: 100%;
+}

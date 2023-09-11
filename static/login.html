@@ -1,0 +1,19 @@
+{% extends '-layout.html' %}
+{% block content %}
+<section class="middle">
+    <h3>Login</h3>
+    <p>We're happy to have you back!</p>
+    <form action="/login" method="post">
+        <div class="mb-1">
+            <input type="email" name="email" class="form-control" id="email" placeholder="Email address">
+        </div>
+        <div class="mb-1">
+            <input type="text" name="name" class="form-control" id="email" placeholder="Username">
+        </div>
+        <div class="mb-1">
+            <input type="password" name="password" class="form-control" id="email" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin: 0px;">Submit</button>
+    </form>
+</section>
+{% endblock %}
