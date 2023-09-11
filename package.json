@@ -12,5 +12,8 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^8.5.1",
     "prisma": "^5.2.0"
+  },
+  "devDependencies": {
+    "bun-html-live-reload": "^0.1.1"
   }
 }

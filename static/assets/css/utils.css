@@ -1,0 +1,8 @@
+@font-face {
+    font-family: Nunito;
+    src: url('/static/assets/fonts/Nunito/Nunito-VariableFont_wght.ttf');
+}
+:root{
+    --sn_orange: rgb(255, 196, 0);
+    --sn_magenta: rgb(255, 0, 119);
+}
