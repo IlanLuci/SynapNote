@@ -8,29 +8,42 @@ datasource db {
 }
 
 model User {
-  id              Int     @id @default(autoincrement())
-  email           String  @unique
-  name            String?
-  password        String
-  salt            String
-  notes           Note[]
-  collaborations  CollaboratorsOnNotes[]
+  id             Int                    @id @default(autoincrement())
+  email          String                 @unique
+  name           String?
+  password       String
+  salt           String
+  notes          Note[]
+  starredNotes   Int[]
+  collaborations CollaboratorsOnNotes[]
 }
 
 model CollaboratorsOnNotes {
-  owner       User        @relation(fields: [ownerID], references: [id])
-  ownerID     Int
-  note        Note        @relation(fields: [noteID], references: [id])
-  noteID      Int
+  owner   User @relation(fields: [ownerID], references: [id])
+  ownerID Int
+  note    Note @relation(fields: [noteID], references: [id])
+  noteID  Int
 
   @@id([ownerID, noteID])
 }
 
 model Note {
-  id              Int     @id @default(autoincrement())
-  name            String?
-  content         String?
-  collaborators   CollaboratorsOnNotes[]
-  owner           User    @relation(fields: [ownerID], references: [id])
-  ownerID         Int
+  id            Int                    @id @default(autoincrement())
+  name          String?
+  subject       String?
+  visibility    Visibility             @default(value: PRIVATE)
+  views         Int                    @default(0)
+  stars         Int                    @default(0)
+  tags          String[]
+  content       String?
+  createdAt     DateTime               @default(now())
+  updatedAt     DateTime               @updatedAt
+  collaborators CollaboratorsOnNotes[]
+  owner         User                   @relation(fields: [ownerID], references: [id])
+  ownerID       Int
+}
+
+enum Visibility {
+  PUBLIC
+  PRIVATE
 }
