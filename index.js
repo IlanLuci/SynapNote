@@ -9,12 +9,24 @@
 
 const cookieParser = require('cookie-parser');
 const express = require('express');
+const nunjucks = require('nunjucks')
+
+nunjucks.configure({ autoescape: true });
 
 import requestMethod from './middleware/requestMethod';
 import v1 from './v1';
 
 const port = 3000;
 const app = express();
+
+nunjucks.configure('static', {
+    autoescape: true,
+    express: app
+});
+
+app.get('/', function(req, res) {
+    res.render('index.html');
+});
 
 app.use(express.static('static'))
 app.use(express.json());
