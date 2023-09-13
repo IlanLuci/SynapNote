@@ -3,7 +3,10 @@
 <section class="middle">
     <h3>Login</h3>
     <p>We're happy to have you back!</p>
-    <form action="/api/v1/login" method="post">
+    <form action="/api/v1/login" method="post" id="login-form">
+        <div class="mb-1 val" id="login-error">
+            error message    
+        </div>
         <div class="mb-1">
             <input type="email" name="email" class="form-control" id="email" placeholder="Email address" required>
         </div>
@@ -12,5 +15,6 @@
         </div>
         <button type="submit" class="btn btn-primary" style="width: 100%; margin: 0px;">Submit</button>
     </form>
+    <p class="mt-5">Don't have an account? <br><a href="/register">Sign up instead</a>.</p>
 </section>
 {% endblock %}
