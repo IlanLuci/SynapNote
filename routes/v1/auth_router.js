@@ -43,7 +43,7 @@ async function register(req, res) {
         });
 
         res.setHeader('Set-Cookie', cookie);
-        res.sendStatus(200);
+        res.redirect('/');
     } catch (error) {
         console.log(req.originalUrl + ': ' + error.message);
         res.sendStatus(500);
@@ -82,7 +82,7 @@ async function login(req, res) {
             });
             
             res.setHeader('Set-Cookie', cookie);
-            res.sendStatus(200);
+            res.redirect('/');
         } else {
             res.status(401).send('Invalid credentials.');
         }
