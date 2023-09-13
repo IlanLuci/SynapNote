@@ -34,7 +34,7 @@ const noauth = async (req, res, next) => {
     return next();
   }
   
-  return res.status(403).send('You cannot access this while logged into your account.');
+  return res.redirect('/dashboard');
 };
 
 export { auth, noauth };
