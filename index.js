@@ -42,7 +42,9 @@ app.get('/register', noauth, (req, res) => {
 app.get('/login', noauth, (req, res) => {
     res.render('login.html');
 });
-
+app.get('/dashboard', (req, res) => {
+    res.render('dashboard.html');
+});
 app.use(express.static('static'));
 
 // start http server
