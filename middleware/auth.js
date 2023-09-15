@@ -19,22 +19,57 @@ const auth = async (req, res, next) => {
 };
 
 const noauth = async (req, res, next) => {
-  if (!req.cookies) return next();
+  if (!req.cookies) {
+    res.locals.isLoggedIn = false;
+    return next();
+  }
 
   const token = req.cookies.token;
 
   if (!token) {
+    res.locals.isLoggedIn = false;
     return next();
   }
+  
   try {
     let decoded = jwt.verify(token, Bun.env.JWT_KEY);
 
     req.user = decoded;
   } catch (err) {
+    res.locals.isLoggedIn = false;
     return next();
   }
   
   return res.redirect('/dashboard');
 };
 
-export { auth, noauth };
+const authstate = async (req, res, next) => {
+  if (!req.cookies) {
+    res.locals.isLoggedIn = false;
+    next();
+    return;
+  }
+
+  const token = req.cookies.token;
+
+  if (!token) {
+    res.locals.isLoggedIn = false;
+    next();
+    return;
+  }
+
+  try {
+    let decoded = jwt.verify(token, Bun.env.JWT_KEY);
+
+    req.user = decoded;
+  } catch (err) {
+    res.locals.isLoggedIn = false;
+    next();
+    return;
+  }
+  
+  res.locals.isLoggedIn = true;
+  next();
+};
+
+export { auth, noauth, authstate };

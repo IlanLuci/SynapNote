@@ -61,12 +61,14 @@
         -->
             <form class="d-flex">
                 <!-- if user is signed out -->
-                <a href="/login">
-                    <button type="button" class="btn">Log In</button>
-                </a>
-                <a href="/register">
-                    <button type="button" class="btn btn-primary">Sign Up</button>
-                </a>
+                {% if not isLoggedIn %}
+                    <a href="/login">
+                        <button type="button" class="btn">Log In</button>
+                    </a>
+                    <a href="/register">
+                        <button type="button" class="btn btn-primary">Sign Up</button>
+                    </a>
+                {% endif %}
                 <!-- When user is on dashboard or any other page when signed in
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">

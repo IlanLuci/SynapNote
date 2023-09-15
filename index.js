@@ -15,7 +15,7 @@ const nunjucks = require('nunjucks');
 nunjucks.configure({ autoescape: true });
 
 import requestMethod from './middleware/requestMethod';
-import { noauth } from './middleware/auth';
+import { noauth, authstate } from './middleware/auth';
 import v1 from './v1';
 
 const port = 3000;
@@ -33,8 +33,8 @@ nunjucks.configure('static', {
 
 app.use('/api/v1', v1);
 
-app.get('/', (req, res) => {
-    res.render('index.html');
+app.get('/', authstate, (req, res) => {
+    res.render('index.html', { isLoggedIn: res.locals.isLoggedIn });
 });
 app.get('/register', noauth, (req, res) => {
     res.render('register.html');
@@ -42,9 +42,10 @@ app.get('/register', noauth, (req, res) => {
 app.get('/login', noauth, (req, res) => {
     res.render('login.html');
 });
-app.get('/dashboard', (req, res) => {
+app.get('/dashboard', authstate, (req, res) => {
     res.render('dashboard.html');
 });
+
 app.use(express.static('static'));
 
 // start http server
